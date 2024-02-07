@@ -51,7 +51,7 @@
 		<!-- Runtime dependencies -->
 		<xenon.version>1.8-SNAPSHOT</xenon.version>
 		<!-- TestFX 4.0.17 broke the module -->
-		<testfx.version>4.0.16-alpha</testfx.version>
+		<testfx.version>4.0.17</testfx.version>
 	</properties>
 
 	<dependencies>
