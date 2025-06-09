@@ -118,6 +118,48 @@ public class FxUtilTest extends FxPlatformTestCase {
 	}
 
 	@Test
+	void localToAncestor() {
+		// given
+		Pane ancestor = new Pane();
+		Pane parent = new Pane();
+		Pane child = new Pane();
+		ancestor.getChildren().addAll( parent );
+		parent.getChildren().add( child );
+
+		ancestor.resize( 100, 100 );
+		parent.resizeRelocate( 10, 10, 80, 80 );
+		child.resizeRelocate( 50, 50, 10, 10 );
+
+		// when
+		Bounds result = FxUtil.localToAncestor( child, ancestor );
+
+		// then
+		assertThat( result ).isEqualTo( new BoundingBox( 60, 60, 0, 10, 10, 0 ) );
+	}
+
+	@Test
+	void localToAncestorWithBounds() {
+		// given
+		Pane ancestor = new Pane();
+		Pane parent = new Pane();
+		Pane child = new Pane();
+		ancestor.getChildren().addAll( parent );
+		parent.getChildren().add( child );
+
+		ancestor.resize( 100, 100 );
+		parent.resizeRelocate( 10, 10, 80, 80 );
+		child.resizeRelocate( 50, 50, 10, 10 );
+
+		Bounds bounds = new BoundingBox( 20, -10, 0, 5, 5, 0 );
+
+		// when
+		Bounds result = FxUtil.localToAncestor( child, ancestor, bounds );
+
+		// then
+		assertThat( result ).isEqualTo( new BoundingBox( 80, 50, 0, 5, 5, 0 ) );
+	}
+
+	@Test
 	void testFlatTree() {
 		assertThat( FxUtil.flatTree( root ) ).contains( a, a1, a2, b, b3, b4, b5, b6, c, c7 );
 	}

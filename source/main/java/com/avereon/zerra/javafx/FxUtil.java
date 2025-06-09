@@ -8,6 +8,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -97,13 +98,16 @@ public class FxUtil {
 		Bounds result = bounds;
 
 		Node node = local;
-		while( node != null ) {
-			if( node == ancestor ) break;
+		while( node != null && node != ancestor ) {
 			result = node.localToParent( result );
 			node = node.getParent();
 		}
 
 		return result;
+	}
+
+	public static Rectangle toRectangle( Bounds bounds ) {
+		return new Rectangle( bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight() );
 	}
 
 	public static Bounds bounds( Point3D a, Point3D b ) {
