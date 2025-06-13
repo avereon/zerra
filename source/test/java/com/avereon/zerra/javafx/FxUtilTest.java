@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +44,24 @@ public class FxUtilTest extends FxPlatformTestCase {
 		b.getChildren().addAll( b3, b4, b5, b6 );
 		c.getChildren().addAll( c7 );
 		root.getChildren().addAll( a, b, c );
+	}
+
+	@Test
+	void getContentBounds() {
+		// given
+		double size = 2;
+		double stroke = 0.707106828689575;
+		double sizeWithStroke = size + stroke;
+
+		Pane pane = new Pane();
+		pane.resize( 0, 0 );
+		pane.getChildren().add( new Line( -size, -size, size, size ) );
+
+		// when
+		Bounds result = FxUtil.getContentBounds( pane );
+
+		// then
+		assertThat( result ).isEqualTo( new BoundingBox( -sizeWithStroke, -sizeWithStroke, 2 * sizeWithStroke, 2 * sizeWithStroke ) );
 	}
 
 	@Test

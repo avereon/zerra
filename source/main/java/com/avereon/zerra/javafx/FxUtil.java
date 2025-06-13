@@ -110,6 +110,15 @@ public class FxUtil {
 		return new Rectangle( bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight() );
 	}
 
+	public static Bounds getContentBounds( Parent parent ) {
+		Bounds bounds = null;
+		for( Node child : parent.getChildrenUnmodifiable() ) {
+			bounds = bounds == null ? child.getLayoutBounds() : merge( bounds, child.getLayoutBounds() );
+		}
+		return bounds;
+	}
+
+
 	public static Bounds bounds( Point3D a, Point3D b ) {
 		double minX = Math.min( a.getX(), b.getX() );
 		double minY = Math.min( a.getY(), b.getY() );
