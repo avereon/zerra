@@ -49,7 +49,7 @@
 		<!-- Runtime dependencies -->
 		<!-- Version numbers updated 18 Feb 2023 -->
 		<zevra.version>0.11-SNAPSHOT</zevra.version>
-		<openjfx.version>22.0.2</openjfx.version>
+		<openjfx.version>24.0.1</openjfx.version>
 		<image4j.version>0.7.2</image4j.version>
 
 		<!-- Test dependencies -->
