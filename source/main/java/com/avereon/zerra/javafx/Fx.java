@@ -51,7 +51,7 @@ public class Fx {
 	 *
 	 * @param runnable The runnable to execute
 	 */
-	public static void runOnFxElseCurrentThread( Runnable runnable ) {
+	public static void runOrOnCurrentThread( Runnable runnable ) {
 		if( Fx.isRunning() ) {
 			Fx.run( runnable );
 		} else {
