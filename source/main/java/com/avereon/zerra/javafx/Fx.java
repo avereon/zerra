@@ -38,16 +38,31 @@ public class Fx {
 	/**
 	 * Convenience method to run a Runnable on the FX thread.
 	 *
-	 * @param runnable The runnable to run
+	 * @param runnable The runnable to execute
 	 */
 	public static void run( Runnable runnable ) {
 		Platform.runLater( runnable );
 	}
 
 	/**
+	 * Convenience method to run a Runnable on the FX thread if FX is available.
+	 * If not, run the Runnable on the current thread with the assumption that it
+	 * is not the FX thread.
+	 *
+	 * @param runnable The runnable to execute
+	 */
+	public static void runOnFxElseCurrentThread( Runnable runnable ) {
+		if( Fx.isRunning() ) {
+			Fx.run( runnable );
+		} else {
+			runnable.run();
+		}
+	}
+
+	/**
 	 * Convenience method to run Callable on the FX thread and return the result.
 	 *
-	 * @param callable The callable to run
+	 * @param callable The callable to execute
 	 * @param <T> The type of the result
 	 * @return The result of the callable
 	 */
