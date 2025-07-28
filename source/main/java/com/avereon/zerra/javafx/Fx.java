@@ -45,6 +45,22 @@ public class Fx {
 	}
 
 	/**
+	 * Convenience method to ensure a runnable is executed on the FX thread.
+	 * If the calling thread is already the FX thread, then this method simply
+	 * executes the runnable. Otherwise, it will delegate execution of the
+	 * runnable to the FX thread.
+	 *
+	 * @param runnable The runnable to execute
+	 */
+	public static void onFx( Runnable runnable ) {
+		if( isFxThread() ) {
+			runnable.run();
+		} else {
+			Fx.run( runnable );
+		}
+	}
+
+	/**
 	 * Convenience method to run a Runnable on the FX thread if FX is available.
 	 * If not, run the Runnable on the current thread with the assumption that it
 	 * is not the FX thread.
