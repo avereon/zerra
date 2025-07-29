@@ -52,11 +52,13 @@ public class Fx {
 	 *
 	 * @param runnable The runnable to execute
 	 */
-	public static void onFx( Runnable runnable ) {
+	public static void onFxOrCurrent( Runnable runnable ) {
 		if( isFxThread() ) {
 			runnable.run();
-		} else {
+		} else if( Fx.isRunning() ) {
 			Fx.run( runnable );
+		} else {
+			runnable.run();
 		}
 	}
 
