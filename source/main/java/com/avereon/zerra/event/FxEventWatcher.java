@@ -58,9 +58,10 @@ public class FxEventWatcher implements EventHandler<Event> {
 	}
 
 	/**
-	 * Wait for an event of a specific type to occur. If the event has already occurred this method will return immediately. If the event has not already occurred then this method waits until the next
-	 * event occurs, or the specified timeout,
-	 * whichever comes first.
+	 * Wait for an event of a specific type to occur. If the event has already
+	 * occurred, this method will return immediately. If the event has not already
+	 * occurred, then this method waits until the next event occurs, or the
+	 * specified timeout, whichever comes first.
 	 *
 	 * @param type The event type to wait for
 	 * @param timeout How long, in milliseconds, to wait for the event
@@ -69,19 +70,16 @@ public class FxEventWatcher implements EventHandler<Event> {
 	public synchronized void waitForEvent( EventType<? extends Event> type, long timeout ) throws InterruptedException, TimeoutException {
 		if( timeout <= 0 ) return;
 
-		long duration = 0;
 		boolean shouldWait = true;
-		long start = System.currentTimeMillis();
+		long expiration = System.currentTimeMillis() + timeout;
 
 		while( shouldWait && findNext( type ) == null ) {
-			wait( timeout - duration );
-			duration = System.currentTimeMillis() - start;
-			shouldWait = duration < timeout;
+			wait( expiration - System.currentTimeMillis() );
+			shouldWait = expiration < System.currentTimeMillis();
 		}
 
-		duration = System.currentTimeMillis() - start;
 		String eventTypeName = type.getSuperType() + "." + type.getName();
-		if( duration >= timeout ) throw new TimeoutException( "Timeout waiting for event " + eventTypeName );
+		if( System.currentTimeMillis() > expiration ) throw new TimeoutException( "Timeout waiting for event " + eventTypeName );
 	}
 
 	private Event findNext( EventType<? extends Event> type ) {
