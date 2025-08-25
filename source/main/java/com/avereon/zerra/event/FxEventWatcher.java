@@ -74,8 +74,12 @@ public class FxEventWatcher implements EventHandler<Event> {
 		long expiration = System.currentTimeMillis() + timeout;
 
 		while( shouldWait && findNext( type ) == null ) {
-			wait( expiration - System.currentTimeMillis() );
-			shouldWait = expiration < System.currentTimeMillis();
+			long remaining = expiration - System.currentTimeMillis();
+			remaining = Math.max( 0, remaining );
+			wait( remaining );
+
+			// Wait if the expiration is still greater than the current time
+			shouldWait = expiration > System.currentTimeMillis();
 		}
 
 		String eventTypeName = type.getSuperType() + "." + type.getName();
