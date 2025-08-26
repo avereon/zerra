@@ -70,19 +70,19 @@ public class FxEventWatcher implements EventHandler<Event> {
 	public synchronized void waitForEvent( EventType<? extends Event> type, long timeout ) throws InterruptedException, TimeoutException {
 		if( timeout <= 0 ) return;
 
+		String eventTypeName = type.getSuperType() + "." + type.getName();
 		long expiration = System.currentTimeMillis() + timeout;
-		boolean shouldWait = true;
+		boolean expired = expiration < System.currentTimeMillis();
 
 		Event event = null;
-		while( shouldWait && (event = findNext( type )) == null ) {
+		while( !expired && (event = findNext( type )) == null ) {
 			wait( Math.max( 0, expiration - System.currentTimeMillis() ) );
 
 			// Wait if the expiration is still greater than the current time
-			shouldWait = expiration > System.currentTimeMillis();
+			expired = expiration < System.currentTimeMillis();
 		}
 
-		String eventTypeName = type.getSuperType() + "." + type.getName();
-		if( System.currentTimeMillis() > expiration ) throw new TimeoutException( "Timeout waiting for event " + eventTypeName );
+		if( expired ) throw new TimeoutException( "Timeout waiting for event " + eventTypeName );
 		System.out.println( "Received event=" + event );
 	}
 
