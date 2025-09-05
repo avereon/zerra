@@ -87,6 +87,7 @@ public class FxEventWatcher implements EventHandler<Event> {
 		long eventId = System.identityHashCode( event );
 		long toolId = System.identityHashCode( event.getSource() );
 		System.out.println( "Received event=[" + eventId + "] " + event + " from tool=[" + toolId + "]" );
+		new Throwable().printStackTrace( System.out );
 	}
 
 	private synchronized Event findNext( EventType<? extends Event> type ) {
