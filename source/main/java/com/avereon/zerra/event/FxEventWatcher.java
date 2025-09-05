@@ -43,7 +43,7 @@ public class FxEventWatcher implements EventHandler<Event> {
 		notifyAll();
 	}
 
-	public List<Event> getEvents() {
+	public synchronized List<Event> getEvents() {
 		return new ArrayList<>( events );
 	}
 
@@ -53,7 +53,7 @@ public class FxEventWatcher implements EventHandler<Event> {
 	}
 
 	@SuppressWarnings( "unused" )
-	public void waitForNextEvent( EventType<? extends Event> type ) throws InterruptedException, TimeoutException {
+	public synchronized void waitForNextEvent( EventType<? extends Event> type ) throws InterruptedException, TimeoutException {
 		waitForNextEvent( type, timeout );
 	}
 
@@ -86,7 +86,7 @@ public class FxEventWatcher implements EventHandler<Event> {
 		System.out.println( "Received event=[" + System.identityHashCode( event ) + "] " + event );
 	}
 
-	private Event findNext( EventType<? extends Event> type ) {
+	private synchronized Event findNext( EventType<? extends Event> type ) {
 		Event event;
 		while( (event = events.poll()) != null ) {
 			if( event.getEventType() == type ) return event;
