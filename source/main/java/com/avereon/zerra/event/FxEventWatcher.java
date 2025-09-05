@@ -83,7 +83,10 @@ public class FxEventWatcher implements EventHandler<Event> {
 		}
 
 		if( expired ) throw new TimeoutException( "Timeout waiting for event " + eventTypeName );
-		System.out.println( "Received event=[" + System.identityHashCode( event ) + "] " + event );
+
+		long eventId = System.identityHashCode( event );
+		long toolId = System.identityHashCode( event.getSource() );
+		System.out.println( "Received event=[" + eventId + "] " + event + " from tool=[" + toolId + "]" );
 	}
 
 	private synchronized Event findNext( EventType<? extends Event> type ) {
