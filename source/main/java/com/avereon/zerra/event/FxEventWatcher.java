@@ -1,6 +1,5 @@
 package com.avereon.zerra.event;
 
-import com.avereon.util.Jvm;
 import com.avereon.zerra.javafx.Fx;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -85,9 +84,7 @@ public class FxEventWatcher implements EventHandler<Event> {
 
 		if( expired ) throw new TimeoutException( "Timeout waiting for event " + eventTypeName );
 
-		long eventId = System.identityHashCode( event ) | Jvm.ID;
-		long toolId = System.identityHashCode( event.getSource() ) | Jvm.ID;
-		System.out.println( "Received event=[" + eventId + "] " + event + " from tool=[" + toolId + "]" );
+		if( event.getClass().getSimpleName().equals( "ToolEvent")) System.out.println( "Received event=" + event );
 	}
 
 	private synchronized Event findNext( EventType<? extends Event> type ) {
