@@ -47,7 +47,7 @@ public class FxEventWatcher <T extends Event> implements EventHandler<T> {
 		return new ArrayList<>( events );
 	}
 
-	public void waitForEvent( EventType<T> type ) throws InterruptedException, TimeoutException {
+	public void waitForEvent( EventType<? extends T> type ) throws InterruptedException, TimeoutException {
 		waitForEvent( type, timeout );
 		Fx.waitForWithExceptions( timeout );
 	}
@@ -67,7 +67,7 @@ public class FxEventWatcher <T extends Event> implements EventHandler<T> {
 	 * @param timeout How long, in milliseconds, to wait for the event
 	 * @throws InterruptedException If the timeout is exceeded
 	 */
-	public synchronized void waitForEvent( EventType<T> type, long timeout ) throws InterruptedException, TimeoutException {
+	public synchronized void waitForEvent( EventType<? extends T> type, long timeout ) throws InterruptedException, TimeoutException {
 		if( timeout <= 0 ) return;
 
 		String eventTypeName = type.getSuperType() + "." + type.getName();
@@ -87,7 +87,7 @@ public class FxEventWatcher <T extends Event> implements EventHandler<T> {
 		if( event.getClass().getSimpleName().equals( "ToolEvent")) System.out.println( "Received event=" + event );
 	}
 
-	private synchronized T findNext( EventType<T> type ) {
+	private synchronized T findNext( EventType<? extends T> type ) {
 		T event;
 		while( (event = events.poll()) != null ) {
 			if( event.getEventType() == type ) return event;
