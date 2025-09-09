@@ -15,11 +15,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeoutException;
 
 @CustomLog
-public class FxEventWatcher implements EventHandler<Event> {
+public class FxEventWatcher <T extends Event> implements EventHandler<T> {
 
 	private static final long DEFAULT_WAIT_TIMEOUT = 2500;
 
-	private final Queue<Event> events = new ConcurrentLinkedQueue<>();
+	private final Queue<T> events = new ConcurrentLinkedQueue<>();
 
 	@Getter
 	private final long timeout;
@@ -37,23 +37,23 @@ public class FxEventWatcher implements EventHandler<Event> {
 	}
 
 	@Override
-	public synchronized void handle( Event event ) {
+	public synchronized void handle( T event ) {
 		if( printEventCapture ) System.out.println( "Captured FX event: type=" + event.getEventType() );
 		events.offer( event );
 		notifyAll();
 	}
 
-	public synchronized List<Event> getEvents() {
+	public synchronized List<T> getEvents() {
 		return new ArrayList<>( events );
 	}
 
-	public void waitForEvent( EventType<? extends Event> type ) throws InterruptedException, TimeoutException {
+	public void waitForEvent( EventType<T> type ) throws InterruptedException, TimeoutException {
 		waitForEvent( type, timeout );
 		Fx.waitForWithExceptions( timeout );
 	}
 
 	@SuppressWarnings( "unused" )
-	public synchronized void waitForNextEvent( EventType<? extends Event> type ) throws InterruptedException, TimeoutException {
+	public synchronized void waitForNextEvent( EventType<T> type ) throws InterruptedException, TimeoutException {
 		waitForNextEvent( type, timeout );
 	}
 
@@ -67,14 +67,14 @@ public class FxEventWatcher implements EventHandler<Event> {
 	 * @param timeout How long, in milliseconds, to wait for the event
 	 * @throws InterruptedException If the timeout is exceeded
 	 */
-	public synchronized void waitForEvent( EventType<? extends Event> type, long timeout ) throws InterruptedException, TimeoutException {
+	public synchronized void waitForEvent( EventType<T> type, long timeout ) throws InterruptedException, TimeoutException {
 		if( timeout <= 0 ) return;
 
 		String eventTypeName = type.getSuperType() + "." + type.getName();
 		long expiration = System.currentTimeMillis() + timeout;
 		boolean expired = expiration < System.currentTimeMillis();
 
-		Event event = null;
+		T event = null;
 		while( !expired && (event = findNext( type )) == null ) {
 			wait( Math.max( 0, expiration - System.currentTimeMillis() ) );
 
@@ -87,8 +87,8 @@ public class FxEventWatcher implements EventHandler<Event> {
 		if( event.getClass().getSimpleName().equals( "ToolEvent")) System.out.println( "Received event=" + event );
 	}
 
-	private synchronized Event findNext( EventType<? extends Event> type ) {
-		Event event;
+	private synchronized T findNext( EventType<T> type ) {
+		T event;
 		while( (event = events.poll()) != null ) {
 			if( event.getEventType() == type ) return event;
 		}
@@ -103,7 +103,7 @@ public class FxEventWatcher implements EventHandler<Event> {
 	 * @throws InterruptedException If the timeout is exceeded
 	 */
 	@SuppressWarnings( "SameParameterValue" )
-	private synchronized void waitForNextEvent( EventType<? extends Event> type, long timeout ) throws InterruptedException, TimeoutException {
+	private synchronized void waitForNextEvent( EventType<T> type, long timeout ) throws InterruptedException, TimeoutException {
 		events.clear();
 		waitForEvent( type, timeout );
 	}
