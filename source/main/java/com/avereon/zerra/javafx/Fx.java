@@ -1,5 +1,6 @@
 package com.avereon.zerra.javafx;
 
+import com.avereon.util.ThreadUtil;
 import javafx.application.Platform;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -146,6 +147,24 @@ public class Fx {
 		for( int index = 0; index < count; index++ ) {
 			doWaitForWithExceptions( count, unit );
 		}
+	}
+
+	public static void waitForStability( long timeout ) {
+		waitForStability( timeout, 50 );
+	}
+
+	/**
+	 * After experimentation, particularly with tab panes, it appears that there
+	 * are other threads in the system that are not the FX platform thread doing
+	 * work. This method waits for the FX thread to complete and then waits
+	 * for a specified amount of time to allow these other threads to complete.
+	 *
+	 * @param timeout The maximum time to wait for the FX thread to complete.
+	 * @param plus The amount of time to wait after the FX thread completes.
+	 */
+	public static void waitForStability( long timeout, long plus ) {
+		waitFor( timeout, TimeUnit.MILLISECONDS );
+		ThreadUtil.pause( plus );
 	}
 
 	private static void doWaitForWithExceptions( long count, TimeUnit unit ) throws TimeoutException, InterruptedException {
