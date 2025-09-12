@@ -25,6 +25,17 @@ public class Fx {
 
 	public static final Transform IDENTITY_TRANSFORM = new Affine();
 
+	/**
+	 * The stability wait timeout for some operations. Common values are:
+	 * <pre>
+	 * 100 - GitHub Actions, Mintbox Mini
+	 *  | Slower computers
+	 *  |
+	 *  | Faster computers
+	 * 20 - AMD Threadripper, Intel i9</pre>
+	 */
+	public static final int STABILITY_TIMEOUT = 50;
+
 	private Fx() {}
 
 	public static void startup() {
@@ -150,7 +161,7 @@ public class Fx {
 	}
 
 	public static void waitForStability( long timeout ) {
-		waitForStability( timeout, 10 );
+		waitForStability( timeout, STABILITY_TIMEOUT );
 	}
 
 	/**
