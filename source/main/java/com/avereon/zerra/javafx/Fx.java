@@ -150,7 +150,7 @@ public class Fx {
 	}
 
 	public static void waitForStability( long timeout ) {
-		waitForStability( timeout, 50 );
+		waitForStability( timeout, 10 );
 	}
 
 	/**
