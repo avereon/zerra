@@ -23,9 +23,9 @@ public class FxEventHub extends EventHub {
 	}
 
 	public FxEventHub dispatch( javafx.event.Event event ) {
-		// While the type of the incoming event is known, the parent event types,
-		// used later in the method are not well known. They could be of any event
-		// type and therefore this variable needs to allow any event type.
+		// While the type of the incoming event is known, the parent event types
+		// used later in the method are not well-known. They could be of any event
+		// type, and therefore this variable needs to allow any event type.
 		javafx.event.EventType<?> type = event.getEventType();
 
 		// Go through all the handlers of the event type and all handlers of all

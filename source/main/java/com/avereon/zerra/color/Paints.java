@@ -10,11 +10,13 @@ public class Paints {
 	private Paints() {}
 
 	public static String toString( Paint paint ) {
-		if( paint == null ) return null;
-		if( paint instanceof Color color ) return toString( color );
-		if( paint instanceof LinearGradient gradient ) return toString( gradient );
-		if( paint instanceof RadialGradient gradient ) return toString( gradient );
-		throw new IllegalArgumentException( "Unknown paint type: " + paint.getClass().getName() );
+		return switch( paint ) {
+			case null -> null;
+			case Color color -> toString( color );
+			case LinearGradient gradient -> toString( gradient );
+			case RadialGradient gradient -> toString( gradient );
+			default -> throw new IllegalArgumentException( "Unknown paint type: " + paint.getClass().getName() );
+		};
 	}
 
 	public static String toString( Color color ) {
@@ -50,6 +52,7 @@ public class Paints {
 		}
 	}
 
+	@SuppressWarnings( "unused" )
 	public static boolean isTransparent( Paint paint ) {
 		if( paint == null ) return true;
 		if( paint instanceof Color color ) return Colors.isTransparent( color );

@@ -1,7 +1,9 @@
 package com.avereon.zerra.color;
 
 import javafx.scene.paint.Color;
+import lombok.Getter;
 
+@Getter
 public class ColorTheme {
 
 	private final Color primary;
@@ -13,14 +15,7 @@ public class ColorTheme {
 		this.complement = getComplement( color, 180 );
 	}
 
-	public Color getPrimary() {
-		return primary;
-	}
-
-	public Color getComplement() {
-		return complement;
-	}
-
+	@SuppressWarnings( "SameParameterValue" )
 	private Color getComplement( Color color, double offset ) {
 		double h = color.getHue();
 		double s = color.getSaturation();
