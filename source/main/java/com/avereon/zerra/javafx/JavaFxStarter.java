@@ -15,11 +15,9 @@ public final class JavaFxStarter extends Application {
 
 	public JavaFxStarter() {}
 
-	private static void setStarted( boolean started ) {
-		synchronized( startLock ) {
-			JavaFxStarter.started = started;
-			startLock.notifyAll();
-		}
+	@Override
+	public void start( Stage primaryStage ) {
+		setStarted();
 	}
 
 	public static void startAndWait( long timeout ) throws RuntimeException {
@@ -33,7 +31,7 @@ public final class JavaFxStarter extends Application {
 					JavaFxStarter.launch();
 				} catch( IllegalStateException exception ) {
 					// Platform was already started by a different class
-					setStarted( true );
+					setStarted();
 				} catch( Throwable throwable ) {
 					JavaFxStarter.throwable = throwable;
 				}
@@ -54,9 +52,11 @@ public final class JavaFxStarter extends Application {
 		}
 	}
 
-	@Override
-	public void start( Stage primaryStage ) {
-		setStarted( true );
+	private static void setStarted( ) {
+		synchronized( startLock ) {
+			JavaFxStarter.started = true;
+			startLock.notifyAll();
+		}
 	}
 
 }
