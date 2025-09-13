@@ -61,8 +61,8 @@ public class VectorImageWriter {
 
 	/**
 	 * Save a list of images as an icon. If the icon format supports multiple
-	 * images then all images are used. If the icon format does not support
-	 * multiple images then only the first image is used.
+	 * images, then all images are used. If the icon format does not support
+	 * multiple images, then only the first image is used.
 	 *
 	 * @param renderers The list of image renderers
 	 * @param path The path of the saved image
@@ -88,7 +88,7 @@ public class VectorImageWriter {
 		if( "ico".equals( type ) ) {
 			ICOEncoder.write( images, absoluteFile );
 		} else {
-			boolean result = ImageIO.write( images.get( 0 ), type, absoluteFile );
+			boolean result = ImageIO.write( images.getFirst(), type, absoluteFile );
 			if( !result ) throw new IllegalArgumentException( "Image writer not available for " + type );
 		}
 	}

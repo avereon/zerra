@@ -46,7 +46,7 @@ public class SvgIcon extends VectorIcon {
 
 	/**
 	 * Create an SVG string for an arc. Because SVG path arcs are a bit
-	 * cumbersome this method simplifies the creating of an arc based
+	 * cumbersome, this method simplifies the creating of an arc based
 	 * on the center start and extent.
 	 */
 	public static String arc( double cx, double cy, double r, double start, double extent ) {
@@ -55,7 +55,7 @@ public class SvgIcon extends VectorIcon {
 
 	/**
 	 * Create an SVG string for an arc. Because SVG path arcs are a bit
-	 * cumbersome this method simplifies the creating of an arc based
+	 * cumbersome, this method simplifies the creating of an arc based
 	 * on the center start and extent.
 	 */
 	public static String arc( boolean moveToStart, double cx, double cy, double r, double start, double extent ) {
@@ -77,7 +77,7 @@ public class SvgIcon extends VectorIcon {
 
 	/**
 	 * Create an SVG string for a circle. Because SVG path arcs are a bit
-	 * cumbersome this method simplifies the creating of a full circle.
+	 * cumbersome, this method simplifies the creating of a full circle.
 	 *
 	 * @param cx The circle center X coordinate
 	 * @param cy The circle center Y coordinate
@@ -90,7 +90,7 @@ public class SvgIcon extends VectorIcon {
 
 	/**
 	 * Create an SVG string for an ellipse. Because SVG path arcs are a bit
-	 * cumbersome this method simplifies the creating of a full ellipse.
+	 * cumbersome, this method simplifies the creating of a full ellipse.
 	 *
 	 * @param cx The ellipse center X coordinate
 	 * @param cy The ellipse center Y coordinate
@@ -104,7 +104,7 @@ public class SvgIcon extends VectorIcon {
 
 	/**
 	 * Create an SVG string for an ellipse. Because SVG path arcs are a bit
-	 * cumbersome this method simplifies the creating of a full ellipse.
+	 * cumbersome, this method simplifies the creating of a full ellipse.
 	 *
 	 * @param cx The ellipse center X coordinate
 	 * @param cy The ellipse center Y coordinate
@@ -177,14 +177,17 @@ public class SvgIcon extends VectorIcon {
 	 * @param path The text to fill
 	 * @return This {@link SvgIcon}
 	 */
+	@SuppressWarnings( "unused" )
 	public SvgIcon fillText( String path ) {
 		return fillText( path, null, null );
 	}
 
+	@SuppressWarnings( "unused" )
 	public SvgIcon fillText( String path, Paint paint ) {
 		return fillText( path, paint, null );
 	}
 
+	@SuppressWarnings( "unused" )
 	public SvgIcon fillText( String path, FillRule rule ) {
 		return fillText( path, null, rule );
 	}
@@ -269,6 +272,7 @@ public class SvgIcon extends VectorIcon {
 	 * @param path The SVG path to fill
 	 * @return This {@link SvgIcon}
 	 */
+	@SuppressWarnings( "unused" )
 	public SvgIcon drawText( String path ) {
 		return drawText( path, null );
 	}
@@ -277,6 +281,7 @@ public class SvgIcon extends VectorIcon {
 		return drawText( path, paint, DEFAULT_STROKE_WIDTH );
 	}
 
+	@SuppressWarnings( "unused" )
 	public SvgIcon drawText( String path, double width ) {
 		return drawText( path, null, width, DEFAULT_STROKE_CAP, DEFAULT_STROKE_JOIN, 0 );
 	}
@@ -285,6 +290,7 @@ public class SvgIcon extends VectorIcon {
 		return drawText( path, paint, width, DEFAULT_STROKE_CAP, DEFAULT_STROKE_JOIN, 0 );
 	}
 
+	@SuppressWarnings( "unused" )
 	public SvgIcon drawText( String path, Paint paint, double width, StrokeLineCap cap, StrokeLineJoin join ) {
 		return drawText( path, paint, width, cap, join, 0 );
 	}
@@ -314,7 +320,8 @@ public class SvgIcon extends VectorIcon {
 	}
 
 	/**
-	 * Create an SVG string that represents the given point rotated about cx,cy by angle.
+	 * Create an SVG string that represents the given point rotated about cx,cy
+	 * by the angle.
 	 *
 	 * @param x The X coordinate of the point
 	 * @param y The Y coordinate of the point
@@ -343,7 +350,7 @@ public class SvgIcon extends VectorIcon {
 	}
 
 	/**
-	 * This method should not be overridden. All drawing definition should be done
+	 * This method should not be overridden. Drawing definition should be done
 	 * in the constructor.
 	 */
 	@Override
@@ -417,6 +424,7 @@ public class SvgIcon extends VectorIcon {
 			return context;
 		}
 
+		@SuppressWarnings( "UnusedReturnValue" )
 		protected GraphicsContext teardown( SvgIcon icon ) {
 			GraphicsContext context = icon.getGraphicsContext2D();
 			context.restore();
@@ -529,7 +537,7 @@ public class SvgIcon extends VectorIcon {
 		public void render( SvgIcon icon ) {
 			GraphicsContext context = icon.getGraphicsContext2D();
 
-			// It is important to store the context state, but not restore it
+			// It is important to store the context state but not restore it
 			context.save();
 
 			context.beginPath();
@@ -551,7 +559,7 @@ public class SvgIcon extends VectorIcon {
 		public void render( SvgIcon icon ) {
 			GraphicsContext context = icon.getGraphicsContext2D();
 
-			// It is important to store the context state, but not restore it
+			// It is important to store the context state but not restore it
 			context.save();
 
 			context.transform( new Affine( transform ) );

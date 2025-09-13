@@ -60,7 +60,7 @@ public final class FontUtil {
 	}
 
 	/**
-	 * Pass in the font style and this will return the font weight.
+	 * Pass in the font style, and this will return the font weight.
 	 *
 	 * @param string The font style string
 	 * @return The font weight
@@ -74,7 +74,7 @@ public final class FontUtil {
 	}
 
 	/**
-	 * Pass in the font style and this will return the font posture.
+	 * Pass in the font style, and this will return the font posture.
 	 *
 	 * @param string The font style string
 	 * @return The font posture
@@ -123,6 +123,7 @@ public final class FontUtil {
 		return Font.font( font.getFamily(), getFontWeight( style ), getFontPosture( style ), size );
 	}
 
+	@SuppressWarnings( "unused" )
 	public static Font derive( Font font, FontWeight weight, FontPosture posture, double size ) {
 		return Font.font( font.getFamily(), weight, posture, size );
 	}

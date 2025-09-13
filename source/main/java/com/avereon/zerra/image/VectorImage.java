@@ -18,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 import lombok.CustomLog;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -46,19 +48,19 @@ public abstract class VectorImage extends Canvas {
 
 	private static final CssMetaData<VectorImage, Font> CSS_FONT;
 
-	// This is set to a bright color to reveal when style is not working right
+	// This is set to a bright color to reveal when the style is not working correctly
 	private static final Paint DEFAULT_STROKE_PAINT = Color.MAGENTA;
 
-	// This is set to a bright color to reveal when style is not working right
+	// This is set to a bright color to reveal when the style is not working correctly
 	private static final Paint DEFAULT_PRIMARY_PAINT = Color.RED;
 
-	// This is set to a bright color to reveal when style is not working right
+	// This is set to a bright color to reveal when the style is not working correctly
 	private static final Paint DEFAULT_SECONDARY_PAINT = Color.YELLOW;
 
 	private static final Font DEFAULT_FONT = Font.getDefault();
 
 	static {
-		// Don't forget to update the test style sheets
+		// Remember to update the test style sheets
 		CSS_STROKE_WIDTH = new CssMetaData<>( "-fx-stroke-width", StyleConverter.getSizeConverter() ) {
 
 			@Override
@@ -74,7 +76,7 @@ public abstract class VectorImage extends Canvas {
 
 		};
 
-		// Don't forget to update the test style sheets
+		// Remember to update the test style sheets
 		CSS_STROKE_PAINT = new CssMetaData<>( "-fx-stroke", StyleConverter.getPaintConverter() ) {
 
 			@Override
@@ -90,7 +92,7 @@ public abstract class VectorImage extends Canvas {
 
 		};
 
-		// Don't forget to update the test style sheets
+		// Remember to update the test style sheets
 		CSS_PRIMARY_PAINT = new CssMetaData<>( "-fx-primary", StyleConverter.getPaintConverter() ) {
 
 			@Override
@@ -106,7 +108,7 @@ public abstract class VectorImage extends Canvas {
 
 		};
 
-		// Don't forget to update the test style sheets
+		// Remember to update the test style sheets
 		CSS_SECONDARY_PAINT = new CssMetaData<>( "-fx-secondary", StyleConverter.getPaintConverter() ) {
 
 			@Override
@@ -122,7 +124,7 @@ public abstract class VectorImage extends Canvas {
 
 		};
 
-		// Don't forget to update the test style sheets
+		// Remember to update the test style sheets
 		CSS_FONT = new CssMetaData<>( "-fx-font", StyleConverter.getFontConverter() ) {
 
 			@Override
@@ -165,10 +167,16 @@ public abstract class VectorImage extends Canvas {
 
 	private Font fontOverride;
 
+	@Setter
+	@Getter
 	private double gridX;
 
+	@Getter
+	@Setter
 	private double gridY;
 
+	@Setter
+	@Getter
 	private Theme theme;
 
 	protected VectorImage() {
@@ -342,33 +350,9 @@ public abstract class VectorImage extends Canvas {
 		this.graphicsContextOverride = context;
 	}
 
-	public Theme getTheme() {
-		return theme;
-	}
-
-	public void setTheme( Theme theme ) {
-		this.theme = theme;
-	}
-
 	public void regrid( double width, double height ) {
 		setGridX( width );
 		setGridY( height );
-	}
-
-	public double getGridX() {
-		return gridX;
-	}
-
-	public void setGridX( double gridX ) {
-		this.gridX = gridX;
-	}
-
-	public double getGridY() {
-		return gridY;
-	}
-
-	public void setGridY( double gridY ) {
-		this.gridY = gridY;
 	}
 
 	public boolean isIcon() {
@@ -397,7 +381,7 @@ public abstract class VectorImage extends Canvas {
 
 	/**
 	 * Get an image of the rendered ProgramImage. A new image of size width x
-	 * height is created and the ProgramImage is rendered on the new image at the
+	 * height is created, and the ProgramImage is rendered on the new image at the
 	 * ProgramImage's location.
 	 *
 	 * @param width The width of the new image, not the ProgramImage width

@@ -85,6 +85,7 @@ public abstract class RenderedImage extends VectorImage {
 		getGraphicsContext2D().rect( x, y, w, h );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected void curveTo( double xc, double yc, double x1, double y1 ) {
 		getGraphicsContext2D().quadraticCurveTo( xc, yc, x1, y1 );
 	}
@@ -97,6 +98,7 @@ public abstract class RenderedImage extends VectorImage {
 		getGraphicsContext2D().closePath();
 	}
 
+	@SuppressWarnings( "unused" )
 	protected void fillText( String text, double x, double y, double textSize ) {
 		fillText( text, x, y, textSize, -1 );
 	}
@@ -105,22 +107,27 @@ public abstract class RenderedImage extends VectorImage {
 		renderText( text, x, y, textSize, maxWidth, false );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected void drawText( String text, double x, double y, double textSize ) {
 		drawText( text, x, y, textSize, -1 );
 	}
 
+	@SuppressWarnings( "SameParameterValue" )
 	protected void drawText( String text, double x, double y, double textSize, double maxWidth ) {
 		renderText( text, x, y, textSize, maxWidth, true );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected Paint linearPaint( double x1, double y1, double x2, double y2, Stop... stops ) {
 		return new LinearGradient( x1, y1, x2, y2, false, CycleMethod.NO_CYCLE, stops );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected Paint linearPaint( double x1, double y1, double x2, double y2, List<Stop> stops ) {
 		return new LinearGradient( x1, y1, x2, y2, false, CycleMethod.NO_CYCLE, stops );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected Paint radialPaint( double x, double y, double r, Stop... stops ) {
 		return new RadialGradient( 0, 0, x, y, r, false, CycleMethod.NO_CYCLE, stops );
 	}
@@ -140,6 +147,7 @@ public abstract class RenderedImage extends VectorImage {
 		getGraphicsContext2D().setLineCap( cap );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected void setDrawJoin( StrokeLineJoin join ) {
 		getGraphicsContext2D().setLineJoin( join );
 	}
@@ -156,10 +164,12 @@ public abstract class RenderedImage extends VectorImage {
 		getGraphicsContext2D().setFill( paint );
 	}
 
+	@SuppressWarnings( "SameParameterValue" )
 	protected void setTextAlign( TextAlignment alignment ) {
 		getGraphicsContext2D().setTextAlign( alignment );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected void setTextBaseLine( VPos baseline ) {
 		getGraphicsContext2D().setTextBaseline( baseline );
 	}
@@ -179,6 +189,7 @@ public abstract class RenderedImage extends VectorImage {
 	 * @param x The position x
 	 * @param y The position x
 	 */
+	@SuppressWarnings( "SameParameterValue" )
 	protected void drawImage( Image image, double x, double y ) {
 		drawImage( image, x, y, getGridX(), getGridY() );
 	}
@@ -199,6 +210,7 @@ public abstract class RenderedImage extends VectorImage {
 		getGraphicsContext2D().drawImage( image, x, y, w, h );
 	}
 
+	@SuppressWarnings( "unused" )
 	protected void clearRect( double x, double y, double w, double h ) {
 		getGraphicsContext2D().clearRect( x, y, w, h );
 	}
@@ -243,9 +255,9 @@ public abstract class RenderedImage extends VectorImage {
 	}
 
 	private void renderText( String text, double x, double y, double textSize, double maxWidth, boolean draw ) {
-		// Font sizes smaller than one don't scale as expected
-		// so the workaround is to scale according the text size
-		// and divide the coordinates by the size.
+		// Font sizes smaller than one don't scale as expected,
+		// so the workaround is to scale according to the text
+		// size and divide the coordinates by the text size.
 
 		double fontSize = 72;
 		double scale = textSize / fontSize;
