@@ -1,6 +1,6 @@
 package com.avereon.zerra.image;
 
-import com.avereon.zerra.style.Motif;
+import com.avereon.zerra.style.Theme;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.css.*;
@@ -169,7 +169,7 @@ public abstract class VectorImage extends Canvas {
 
 	private double gridY;
 
-	private Motif motif;
+	private Theme theme;
 
 	protected VectorImage() {
 		this( DEFAULT_GRID, DEFAULT_GRID );
@@ -179,7 +179,7 @@ public abstract class VectorImage extends Canvas {
 		this.gridX = gridX;
 		this.gridY = gridY;
 		resize( DEFAULT_SIZE );
-		setTheme( Motif.DARK );
+		setTheme( Theme.DARK );
 		getStyleClass().add( "xe-image" );
 		if( this instanceof IconTag ) IconTag.asIcon( this );
 	}
@@ -342,12 +342,12 @@ public abstract class VectorImage extends Canvas {
 		this.graphicsContextOverride = context;
 	}
 
-	public Motif getTheme() {
-		return motif;
+	public Theme getTheme() {
+		return theme;
 	}
 
-	public void setTheme( Motif motif ) {
-		this.motif = motif;
+	public void setTheme( Theme theme ) {
+		this.theme = theme;
 	}
 
 	public void regrid( double width, double height ) {
@@ -433,7 +433,7 @@ public abstract class VectorImage extends Canvas {
 			copy.secondaryPaintOverride = this.secondaryPaintOverride;
 			copy.gridX = this.gridX;
 			copy.gridY = this.gridY;
-			copy.motif = this.motif;
+			copy.theme = this.theme;
 		} catch( Exception exception ) {
 			log.atWarn( exception ).log( "Unable to copy icon: %s", getClass().getName() );
 		}
@@ -441,22 +441,22 @@ public abstract class VectorImage extends Canvas {
 		return (T)copy;
 	}
 
-	void setAndApplyTheme( Motif motif ) {
-		setTheme( motif );
+	void setAndApplyTheme( Theme theme ) {
+		setTheme( theme );
 		applyTheme();
 	}
 
 	private void applyTheme() {
 		String style = removeTheme();
-		Motif motif = this.motif == null ? Motif.DARK : this.motif;
-		setStyle( style == null ? motif.getStyle() : style + motif.getStyle() );
+		Theme theme = this.theme == null ? Theme.DARK : this.theme;
+		setStyle( style == null ? theme.getFxTextBackgroundColor() : style + theme.getFxTextBackgroundColor() );
 	}
 
 	private String removeTheme() {
 		String style = getStyle();
-		for( Motif t : Motif.values() ) {
-			int index = style.indexOf( t.getStyle() );
-			if( index > -1 ) style = style.replace( t.getStyle(), "" );
+		for( Theme t : Theme.values() ) {
+			int index = style.indexOf( t.getFxTextBackgroundColor() );
+			if( index > -1 ) style = style.replace( t.getFxTextBackgroundColor(), "" );
 		}
 		setStyle( style );
 		return style;

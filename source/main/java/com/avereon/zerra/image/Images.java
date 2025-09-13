@@ -1,6 +1,6 @@
 package com.avereon.zerra.image;
 
-import com.avereon.zerra.style.Motif;
+import com.avereon.zerra.style.Theme;
 import com.avereon.zerra.style.Stylesheet;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,16 +72,16 @@ public class Images {
 		if( style != null ) node.setStyle( style );
 	}
 
-	private static void applyTheme( VectorImage node, Motif motif ) {
+	private static void applyTheme( VectorImage node, Theme theme ) {
 		String style = removeTheme( node );
-		node.setStyle( style == null ? motif.getStyle() : style + motif.getStyle() );
+		node.setStyle( style == null ? theme.getFxTextBackgroundColor() : style + theme.getFxTextBackgroundColor() );
 	}
 
 	private static String removeTheme( Canvas node ) {
 		String style = node.getStyle();
-		for( Motif t : Motif.values() ) {
-			int index = style.indexOf( t.getStyle() );
-			if( index > -1 ) style = style.replace( t.getStyle(), "" );
+		for( Theme t : Theme.values() ) {
+			int index = style.indexOf( t.getFxTextBackgroundColor() );
+			if( index > -1 ) style = style.replace( t.getFxTextBackgroundColor(), "" );
 		}
 		node.setStyle( style );
 		return style;

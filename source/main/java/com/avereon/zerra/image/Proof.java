@@ -3,7 +3,7 @@ package com.avereon.zerra.image;
 import com.avereon.zerra.color.Colors;
 import com.avereon.zerra.javafx.Fx;
 import com.avereon.zerra.javafx.JavaFxStarter;
-import com.avereon.zerra.style.Motif;
+import com.avereon.zerra.style.Theme;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -57,8 +57,8 @@ public class Proof {
 	}
 
 	private static void proofIcon( VectorImage icon, Color darkFill, Color lightFill ) {
-		Pane darkPane = proofPane( icon.copy(), Motif.DARK, darkFill == null ? Color.web( "#404040" ) : darkFill );
-		Pane lightPane = proofPane( icon.copy(), Motif.LIGHT, lightFill == null ? Color.web( "#C0C0C0" ) : lightFill );
+		Pane darkPane = proofPane( icon.copy(), Theme.DARK, darkFill == null ? Color.web( "#404040" ) : darkFill );
+		Pane lightPane = proofPane( icon.copy(), Theme.LIGHT, lightFill == null ? Color.web( "#C0C0C0" ) : lightFill );
 		HBox box = new HBox( 5, darkPane, lightPane );
 		box.setStyle( "-fx-background-color: " + Colors.toString( FILL ) + ";" );
 		Scene scene = new Scene( box );
@@ -82,8 +82,8 @@ public class Proof {
 		stage.show();
 	}
 
-	private static Pane proofPane( VectorImage icon, Motif motif, Color fill ) {
-		icon.setAndApplyTheme( motif );
+	private static Pane proofPane( VectorImage icon, Theme theme, Color fill ) {
+		icon.setAndApplyTheme( theme );
 
 		String style = "";
 		if( fill != null ) style += "-fx-background-color: " + Colors.toString( fill ) + ";";
