@@ -1,4 +1,4 @@
-package com.avereon.zerra.style;
+package com.avereon.zerra;
 
 public interface Stylesheet {
 

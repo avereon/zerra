@@ -3,7 +3,7 @@ package com.avereon.zerra.image;
 import com.avereon.zerra.color.Colors;
 import com.avereon.zerra.javafx.Fx;
 import com.avereon.zerra.javafx.FxStarter;
-import com.avereon.zerra.style.Theme;
+import com.avereon.zerra.theme.Theme;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;

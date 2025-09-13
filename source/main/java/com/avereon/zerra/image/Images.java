@@ -1,7 +1,7 @@
 package com.avereon.zerra.image;
 
-import com.avereon.zerra.style.Theme;
-import com.avereon.zerra.style.Stylesheet;
+import com.avereon.zerra.theme.Theme;
+import com.avereon.zerra.Stylesheet;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

@@ -1,6 +1,6 @@
 package com.avereon.zerra.image;
 
-import com.avereon.zerra.style.Theme;
+import com.avereon.zerra.theme.Theme;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.css.*;
