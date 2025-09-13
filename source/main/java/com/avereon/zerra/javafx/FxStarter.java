@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.TimeoutException;
 
-public final class JavaFxStarter extends Application {
+public final class FxStarter extends Application {
 
 	private final static Object startLock = new Object();
 
@@ -13,7 +13,7 @@ public final class JavaFxStarter extends Application {
 
 	private static boolean started;
 
-	public JavaFxStarter() {}
+	public FxStarter() {}
 
 	@Override
 	public void start( Stage primaryStage ) {
@@ -28,12 +28,12 @@ public final class JavaFxStarter extends Application {
 
 			new Thread( () -> {
 				try {
-					JavaFxStarter.launch();
+					FxStarter.launch();
 				} catch( IllegalStateException exception ) {
 					// Platform was already started by a different class
 					setStarted();
 				} catch( Throwable throwable ) {
-					JavaFxStarter.throwable = throwable;
+					FxStarter.throwable = throwable;
 				}
 			} ).start();
 
@@ -44,7 +44,7 @@ public final class JavaFxStarter extends Application {
 						throw new RuntimeException( new TimeoutException( "FX platform start timeout after " + timeout + " ms" ) );
 					}
 				} catch( Throwable throwable ) {
-					JavaFxStarter.throwable = throwable;
+					FxStarter.throwable = throwable;
 				}
 			}
 
@@ -54,7 +54,7 @@ public final class JavaFxStarter extends Application {
 
 	private static void setStarted( ) {
 		synchronized( startLock ) {
-			JavaFxStarter.started = true;
+			FxStarter.started = true;
 			startLock.notifyAll();
 		}
 	}

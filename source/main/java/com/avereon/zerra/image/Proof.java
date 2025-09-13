@@ -2,7 +2,7 @@ package com.avereon.zerra.image;
 
 import com.avereon.zerra.color.Colors;
 import com.avereon.zerra.javafx.Fx;
-import com.avereon.zerra.javafx.JavaFxStarter;
+import com.avereon.zerra.javafx.FxStarter;
 import com.avereon.zerra.style.Theme;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -36,12 +36,12 @@ public class Proof {
 	}
 
 	public static void proof( Canvas node, double width, double height, Paint fill ) {
-		JavaFxStarter.startAndWait( 1000 );
+		FxStarter.startAndWait( 1000 );
 		Fx.run( () -> proofImage( node, width, height, fill ) );
 	}
 
 	public static void proof( Canvas node, Color darkFill, Color lightFill ) {
-		JavaFxStarter.startAndWait( 1000 );
+		FxStarter.startAndWait( 1000 );
 		Fx.run( () -> proofIcon( (VectorImage)node, darkFill, lightFill ) );
 	}
 
