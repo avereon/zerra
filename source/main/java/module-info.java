@@ -11,6 +11,7 @@ module com.avereon.zerra {
 	exports com.avereon.zerra.font;
 	exports com.avereon.zerra.image;
 	exports com.avereon.zerra.javafx;
+	exports com.avereon.zerra.stage;
 	exports com.avereon.zerra.theme;
 	exports com.avereon.zerra;
 }
