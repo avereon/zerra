@@ -1,5 +1,6 @@
 package com.avereon.zerra.javafx;
 
+import com.avereon.util.OperatingSystem;
 import com.avereon.util.ThreadUtil;
 import javafx.application.Platform;
 import javafx.geometry.BoundingBox;
@@ -34,7 +35,17 @@ public class Fx {
 	 *  | Faster computers
 	 * 20 - AMD Threadripper, Intel i9</pre>
 	 */
-	public static final int STABILITY_TIMEOUT = 50;
+	public static final int STABILITY_TIMEOUT;
+
+	static {
+		if( OperatingSystem.isMac() ) {
+			STABILITY_TIMEOUT = 80;
+		} else if( OperatingSystem.isWindows() ) {
+			STABILITY_TIMEOUT = 40;
+		} else {
+			STABILITY_TIMEOUT = 20;
+		}
+	}
 
 	private Fx() {}
 
