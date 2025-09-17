@@ -39,11 +39,9 @@ public class Fx {
 
 	static {
 		if( OperatingSystem.isMac() ) {
-			STABILITY_TIMEOUT = 80;
-		} else if( OperatingSystem.isWindows() ) {
-			STABILITY_TIMEOUT = 40;
+			STABILITY_TIMEOUT = 70;
 		} else {
-			STABILITY_TIMEOUT = 20;
+			STABILITY_TIMEOUT = 50;
 		}
 	}
 
