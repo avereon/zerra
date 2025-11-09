@@ -5,6 +5,7 @@ module com.avereon.zerra {
 	requires javafx.controls;
 	requires javafx.swing;
 	requires image4j;
+	requires org.jspecify;
 
 	exports com.avereon.zerra.color;
 	exports com.avereon.zerra.event;
