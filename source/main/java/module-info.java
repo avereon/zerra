@@ -1,11 +1,12 @@
 module com.avereon.zerra {
+
 	requires static lombok;
+	requires static org.jspecify;
 
 	requires com.avereon.zevra;
 	requires javafx.controls;
 	requires javafx.swing;
 	requires image4j;
-	requires org.jspecify;
 
 	exports com.avereon.zerra.color;
 	exports com.avereon.zerra.event;
