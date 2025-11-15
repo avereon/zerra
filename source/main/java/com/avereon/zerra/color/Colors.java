@@ -206,6 +206,14 @@ public class Colors {
 		return Color.color( r, g, b, color.getOpacity() );
 	}
 
+	public static java.awt.Color asAwtColor( javafx.scene.paint.Color color ) {
+		return new java.awt.Color( (float)color.getRed(), (float)color.getGreen(), (float)color.getBlue(), (float)color.getOpacity() );
+	}
+
+	public static javafx.scene.paint.Color asFxColor( java.awt.Color color ) {
+		return javafx.scene.paint.Color.rgb( color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() / 255.0 );
+	}
+
 	private static double clamp( double value ) {
 		if( value < 0 ) {
 			value = 0;

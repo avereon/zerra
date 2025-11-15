@@ -81,6 +81,26 @@ class ColorsTest {
 		assertSwapLuminance( Color.rgb( 32, 128, 64 ), Color.color( 0.22173202141291556, 0.8869280856516623, 0.44346404282583113 ) );
 	}
 
+	@Test
+	void asAwtColor() {
+		javafx.scene.paint.Color fxColor = javafx.scene.paint.Color.rgb( 128, 64, 32, 0.5 );
+		java.awt.Color awtColor = Colors.asAwtColor( fxColor );
+		assertThat( awtColor.getRed() ).isEqualTo( 128 );
+		assertThat( awtColor.getGreen() ).isEqualTo( 64 );
+		assertThat( awtColor.getBlue() ).isEqualTo( 32 );
+		assertThat( awtColor.getAlpha() ).isEqualTo( 128 );
+	}
+
+	@Test
+	void asFxColor() {
+		java.awt.Color awtColor = new java.awt.Color( 128, 64, 32, 128 );
+		javafx.scene.paint.Color fxColor = Colors.asFxColor( awtColor );
+		assertThat( fxColor.getRed() ).isEqualTo( 0.501960813999176 );
+		assertThat( fxColor.getGreen() ).isEqualTo( 0.250980406999588 );
+		assertThat( fxColor.getBlue() ).isEqualTo( 0.125490203499794 );
+		assertThat( fxColor.getOpacity() ).isEqualTo( 0.501960813999176 );
+	}
+
 	private void assertSwapLuminance( Color source, Color target ) {
 		assertSwapLuminance( source, target, Offset.offset( 1e-7 ) );
 	}
